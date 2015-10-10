@@ -157,8 +157,6 @@ interface Conditional <: Node {
 
 An if/unless/else expression.
 
-FIXME: use ExpressionNode
-
 ### Case/When
 
 ```js
@@ -197,8 +195,6 @@ interface While <: BlockNode {
 ```
 
 A while loop construct.
-
-FIXME: use ExpressionNode
 
 ### Each
 
