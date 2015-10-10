@@ -102,18 +102,32 @@ A piece of plain text.
 ## Tag
 
 ```js
-interface Tag <: AttributedNode, BlockNode {
-  type: "Tag";
-  name: string;               // the name of the tag (or if `buffer` is true, the JavaScriptExpression of the name of the tag)
+interface CommonTag <: AttributedNode, BlockNode {
   selfClosing: boolean;       // if the tag is explicitly stated as self-closing
-  buffer: boolean;            // if the tag name should be interpreted at runtime
   isInline: boolean;          // if the tag is defined as an inline tag as opposed to a block-level tag
+}
+```
+
+### Regular Tag
+
+```js
+interface Tag <: CommonTag {
+  type: "Tag";
+  name: string;               // the name of the tag
 }
 ```
 
 An HTML tag.
 
-FIXME: better name for buffer
+### Interpolated Tag
+
+```js
+interface InterpolatedTag <: CommonTag, ExpressionNode {
+  type: "InterpolatedTag";
+}
+```
+
+A tag whose name is interpolated at runtime.
 
 ## Code
 
