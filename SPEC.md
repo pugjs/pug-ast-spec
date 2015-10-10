@@ -49,7 +49,7 @@ interface ValueNode <: Node {
 interface Attribute {
   name: string;               // the name of the attribute
   val: JavaScriptExpression;  // JavaScript expression returning the value of the attribute
-  escaped: boolean;           // if the value of the `val` is HTML-escaped before being buffered
+  mustEscape: boolean;        // if the value must be HTML-escaped before being buffered
 }
 
 interface JavaScriptExpression <: string { }
@@ -123,9 +123,9 @@ FIXME: better name for buffer
 ```js
 interface Code <: BlockNode, ValueNode {
   type: "Code";
-  buffer: boolean;   // if the value of the piece of code is buffered in the template
-  escape: boolean;   // if `buffer` is true, if the value is HTML-escaped before being buffered
-  isInline: boolean; // whether the node is the result of a string interpolation
+  buffer: boolean;            // if the value of the piece of code is buffered in the template
+  mustEscape: boolean;        // if the value must be HTML-escaped before being buffered
+  isInline: boolean;          // whether the node is the result of a string interpolation
 }
 ```
 
