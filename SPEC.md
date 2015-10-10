@@ -16,13 +16,10 @@ interface Node {
 interface Block <: Node {
   type: "Block";
   nodes: [ Node ];
-  yield: boolean | null; // if the Block represents a `yield` operator
 }
 ```
 
 Generic container of Nodes.
-
-FIXME: use a separate type for yields
 
 ## Abstract Node Types
 
@@ -226,6 +223,16 @@ interface MixinBlock <: PlaceholderNode {
 ```
 
 A placeholder for adding a block in mixin.
+
+## Yield
+
+```js
+interface YieldBlock <: PlaceholderNode {
+  type: "YieldBlock";
+}
+```
+
+A placeholder for `yield`s in included file.
 
 ## File Operations
 
