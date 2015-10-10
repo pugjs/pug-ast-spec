@@ -208,13 +208,11 @@ interface Each <: BlockNode {
   obj: JavaScriptExpression;        // the object or array that is being looped
   val: JavaScriptIdentifier;        // the variable name of the value of a specific object property or array member
   key: JavaScriptIdentifier | null; // the variable name, if any, of the object property name or array index of `val`
-  alternative: Block | null;        // the else expression
+  alternate: Block | null;          // the else expression
 }
 ```
 
 A each loop construct.
-
-FIXME: use `alternate` rather than `alternative`
 
 ## Mixin
 
