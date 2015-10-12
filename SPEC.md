@@ -16,13 +16,10 @@ interface Node {
 interface Block <: Node {
   type: "Block";
   nodes: [ Node ];
-  yield: boolean | null; // if the Block represents a `yield` operator
 }
 ```
 
 Generic container of Nodes.
-
-FIXME: use a separate type for yields
 
 ## Abstract Node Types
 
@@ -105,18 +102,32 @@ A piece of plain text.
 ## Tag
 
 ```js
-interface Tag <: AttributedNode, BlockNode {
-  type: "Tag";
-  name: string;               // the name of the tag (or if `buffer` is true, the JavaScriptExpression of the name of the tag)
+interface CommonTag <: AttributedNode, BlockNode {
   selfClosing: boolean;       // if the tag is explicitly stated as self-closing
-  buffer: boolean;            // if the tag name should be interpreted at runtime
   isInline: boolean;          // if the tag is defined as an inline tag as opposed to a block-level tag
+}
+```
+
+### Regular Tag
+
+```js
+interface Tag <: CommonTag {
+  type: "Tag";
+  name: string;               // the name of the tag
 }
 ```
 
 An HTML tag.
 
-FIXME: better name for buffer
+### Interpolated Tag
+
+```js
+interface InterpolatedTag <: CommonTag, ExpressionNode {
+  type: "InterpolatedTag";
+}
+```
+
+A tag whose name is interpolated at runtime.
 
 ## Code
 
@@ -145,8 +156,6 @@ interface Conditional <: Node {
 ```
 
 An if/unless/else expression.
-
-FIXME: use ExpressionNode
 
 ### Case/When
 
@@ -187,8 +196,6 @@ interface While <: BlockNode {
 
 A while loop construct.
 
-FIXME: use ExpressionNode
-
 ### Each
 
 ```js
@@ -197,13 +204,11 @@ interface Each <: BlockNode {
   obj: JavaScriptExpression;        // the object or array that is being looped
   val: JavaScriptIdentifier;        // the variable name of the value of a specific object property or array member
   key: JavaScriptIdentifier | null; // the variable name, if any, of the object property name or array index of `val`
-  alternative: Block | null;        // the else expression
+  alternate: Block | null;          // the else expression
 }
 ```
 
 A each loop construct.
-
-FIXME: use `alternate` rather than `alternative`
 
 ## Mixin
 
@@ -226,6 +231,16 @@ interface MixinBlock <: PlaceholderNode {
 ```
 
 A placeholder for adding a block in mixin.
+
+## Yield
+
+```js
+interface YieldBlock <: PlaceholderNode {
+  type: "YieldBlock";
+}
+```
+
+A placeholder for `yield`s in included file.
 
 ## File Operations
 
