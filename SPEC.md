@@ -266,14 +266,36 @@ A node with file reference information.
 ### Include
 
 ```js
-interface Include <: BlockNode, FileNode {
-  type: "Include";
-  filter: string;
-  attrs: [ Attribute ];
-}
+interface IncludeNode <: BlockNode, FileNode {}
 ```
 
 An include statement.
+
+#### Jade Include
+
+```js
+interface Include <: IncludeNode {
+  type: "Include";
+}
+```
+
+#### Raw Include
+
+```js
+interface RawInclude <: IncludeNode {
+  type: "RawInclude";
+  filters: [ IncludeFilter ];
+}
+```
+
+A raw inclusion with optional filter(s) applied. `.filters` can contain zero
+or more `IncludeFilter`s, applied in ascending order from `[0]`.
+
+```js
+interface IncludeFilter <: FilterNode {
+  type: "IncludeFilter";
+}
+```
 
 ### Extends/NamedBlock
 
@@ -299,10 +321,17 @@ Declaring or providing a named block for inheritance.
 ## Filter
 
 ```js
-interface Filter <: BlockNode {
-  type: "Filter";
+interface FilterNode <: Node {
   name: string;
   attrs: [ Attribute ];
+}
+```
+
+A generic node denoting a filter.
+
+```js
+interface Filter <: FilterNode, BlockNode {
+  type: "Filter";
 }
 ```
 
