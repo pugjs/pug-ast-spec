@@ -5,7 +5,7 @@
 ```js
 interface Node {
   type: string;
-  line: number | null; // line number of the start position of the node
+  line: number; // line number of the start position of the node
   filename: string | null; // the name of the file the node originally belongs to
 }
 ```
