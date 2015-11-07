@@ -265,16 +265,10 @@ A node with file reference information.
 
 ### Include
 
-```js
-interface IncludeNode <: BlockNode, FileNode {}
-```
-
-An include statement.
-
 #### Jade Include
 
 ```js
-interface Include <: IncludeNode {
+interface Include <: BlockNode, FileNode {
   type: "Include";
 }
 ```
@@ -282,7 +276,7 @@ interface Include <: IncludeNode {
 #### Raw Include
 
 ```js
-interface RawInclude <: IncludeNode {
+interface RawInclude <: FileNode {
   type: "RawInclude";
   filters: [ IncludeFilter ];
 }
