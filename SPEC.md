@@ -1,4 +1,4 @@
-# The Jade AST (WIP)
+# The Pug AST (WIP)
 
 ## Node objects
 
@@ -266,7 +266,7 @@ A node with file reference information.
 
 ### Include
 
-#### Jade Include
+#### Pug Include
 
 ```js
 interface Include <: BlockNode, FileNode {
