@@ -80,15 +80,15 @@ interface Comment <: CommonComment {
 }
 ```
 
-Single line comment.
+Single-line comment.
 
 ```js
-interface BlockComment <: BlockNode, Comment {
+interface BlockComment <: BlockNode, CommonComment {
   type: "BlockComment";
 }
 ```
 
-A multi-line comment.
+Multi-line comment.
 
 ## Text
 
@@ -152,7 +152,7 @@ interface Conditional <: Node {
   type: "Conditional";
   test: JavaScriptExpression;
   consequent: Block;
-  alternate: Block | null;
+  alternate: Conditional | Block | null;
 }
 ```
 
@@ -218,10 +218,11 @@ interface Mixin <: AttributedNode, BlockNode {
   type: "Mixin";
   name: JavaScriptIdentifier;       // the name of the mixin
   call: boolean;                    // if this node is a mixin call (as opposed to mixin definition)
+  args: string;                     // list of arguments (declared in case of mixin definition, or specified in case of mixin call)
 }
 ```
 
-A mixin definition or call.
+A mixin definition or call. Warning: this Node only inherits from `AttributedNode` if `call` is `false`.
 
 ### MixinBlock
 
@@ -307,7 +308,7 @@ interface NamedBlock <: PlaceholderNode {
   type: "NamedBlock";
   name: string;
   mode: "replace" | "append" | "prepend";
-  nodes: [ Node ];
+  nodes: [ Node ]; // no elements if the NamedBlock is a placeholder
 }
 ```
 
@@ -318,7 +319,7 @@ Declaring or providing a named block for inheritance.
 ```js
 interface FilterNode <: Node {
   name: string;
-  attrs: [ Attribute ];
+  attrs: [ Attribute ]; // filter options
 }
 ```
 
