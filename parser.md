@@ -222,7 +222,7 @@ interface Mixin <: AttributedNode, BlockNode {
 }
 ```
 
-A mixin definition or call. Warning: this Node only inherits from `AttributedNode` if `call` is `false`.
+A mixin definition or call. Warning: this Node only inherits from `AttributedNode` if `call` is `true`.
 
 ### MixinBlock
 
